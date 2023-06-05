@@ -1,0 +1,351 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "307e4896-4c89-4ce1-83d6-e11e8daeea85",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        620,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://xmlcalendar.ru/data/ru/2022/calendar.csv",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "b420b83c-7373-4b40-b145-bf9ecc393368",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        900,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://xmlcalendar.ru/data/ru/2022/calendar.json",
+        "options": {}
+      },
+      "id": "5f5ad483-711b-432d-9bc4-e6f014da4f2b",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        900,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "Год/Месяц",
+              "field2": "Год/Месяц"
+            },
+            {
+              "field1": "Январь",
+              "field2": "Январь"
+            },
+            {
+              "field1": "Февраль",
+              "field2": "Февраль"
+            },
+            {
+              "field1": "Март",
+              "field2": "Март"
+            },
+            {
+              "field1": "Апрель",
+              "field2": "Апрель"
+            },
+            {
+              "field1": "Май",
+              "field2": "Май"
+            },
+            {
+              "field1": "Июнь",
+              "field2": "Июнь"
+            },
+            {
+              "field1": "Июль",
+              "field2": "Июль"
+            },
+            {
+              "field1": "Август",
+              "field2": "Август"
+            },
+            {
+              "field1": "Сентябрь",
+              "field2": "Сентябрь"
+            },
+            {
+              "field1": "Октябрь",
+              "field2": "Октябрь"
+            },
+            {
+              "field1": "Ноябрь",
+              "field2": "Ноябрь"
+            },
+            {
+              "field1": "Декабрь",
+              "field2": "Декабрь"
+            },
+            {
+              "field1": "['Всего рабочих дней']",
+              "field2": "['Всего рабочих дней']"
+            },
+            {
+              "field1": "['Всего праздничных и выходных дней']",
+              "field2": "['Всего праздничных и выходных дней']"
+            },
+            {
+              "field1": "['Количество рабочих часов при 40-часовой рабочей неделе']",
+              "field2": "['Количество рабочих часов при 40-часовой рабочей неделе']"
+            },
+            {
+              "field1": "['Количество рабочих часов при 36-часовой рабочей неделе']",
+              "field2": "['Количество рабочих часов при 36-часовой рабочей неделе']"
+            },
+            {
+              "field1": "['Количество рабочих часов при 24-часовой рабочей неделе']",
+              "field2": "['Количество рабочих часов при 24-часовой рабочей неделе']"
+            }
+          ]
+        },
+        "resolve": "mix",
+        "options": {}
+      },
+      "id": "75947ce2-d8ae-40bd-9a13-9f332126d4a1",
+      "name": "Compare Datasets",
+      "type": "n8n-nodes-base.compareDatasets",
+      "typeVersion": 2.2,
+      "position": [
+        1380,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": "false",
+        "values": {
+          "number": [
+            {
+              "name": "Год/Месяц",
+              "value": "={{ $json.year }}"
+            }
+          ],
+          "string": [
+            {
+              "name": "Январь",
+              "value": "={{ $json.months[0].days }}"
+            },
+            {
+              "name": "Февраль",
+              "value": "={{ $json.months[1].days }}"
+            },
+            {
+              "name": "Март",
+              "value": "={{ $json.months[2].days }}"
+            },
+            {
+              "name": "Апрель",
+              "value": "={{ $json.months[3].days }}"
+            },
+            {
+              "name": "Май",
+              "value": "={{ $json.months[4].days }}"
+            },
+            {
+              "name": "Июнь",
+              "value": "={{ $json.months[5].days }}"
+            },
+            {
+              "name": "Июль",
+              "value": "={{ $json.months[6].days }}"
+            },
+            {
+              "name": "Август",
+              "value": "={{ $json.months[7].days }}"
+            },
+            {
+              "name": "Сентябрь",
+              "value": "={{ $json.months[8].days }}"
+            },
+            {
+              "name": "Октябрь",
+              "value": "={{ $json.months[9].days }}"
+            },
+            {
+              "name": "Ноябрь",
+              "value": "={{ $json.months[10].days }}"
+            },
+            {
+              "name": "Декабрь",
+              "value": "={{ $json.months[11].days }}"
+            },
+            {
+              "name": "Всего рабочих дней",
+              "value": "={{ $json.statistic.workdays }}"
+            },
+            {
+              "name": "Всего праздничных и выходных дней",
+              "value": "={{ $json.statistic.holidays }}"
+            },
+            {
+              "name": "Количество рабочих часов при 40-часовой рабочей неделе",
+              "value": "={{ $json.statistic.hours40 }}"
+            },
+            {
+              "name": "Количество рабочих часов при 36-часовой рабочей неделе",
+              "value": "={{ $json.statistic.hours36 }}"
+            },
+            {
+              "name": "Количество рабочих часов при 24-часовой рабочей неделе",
+              "value": "={{ $json.statistic.hours24 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3973dd73-6c93-4c78-a3e0-ca616a67ccf5",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "readAsString": true
+        }
+      },
+      "id": "5a8cbc85-8329-46d7-8d15-26d5623ad9d9",
+      "name": "Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toFile",
+        "fileFormat": "html",
+        "options": {}
+      },
+      "id": "10448872-18eb-46e9-b689-cda85cd57554",
+      "name": "Spreadsheet File1",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 1,
+      "position": [
+        1580,
+        360
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Compare Datasets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spreadsheet File": {
+      "main": [
+        [
+          {
+            "node": "Compare Datasets",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Compare Datasets": {
+      "main": [
+        [],
+        [],
+        [
+          {
+            "node": "Spreadsheet File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spreadsheet File1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "bf5cfaee-5122-4a75-b741-6d903c866b55",
+  "id": "1",
+  "meta": {
+    "instanceId": "0bd53b2a947661acbe10179053b9153b2b6a1b42f11dfd760aea0c489eb17a3b"
+  },
+  "tags": []
+}
